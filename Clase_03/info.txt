@@ -1,0 +1,72 @@
+CLASE_03_12_09_2020
+
+Había que hacer tarea de la clase 2.
+
+Separamos la logica de rutas de la de los endpoints.
+Solamente quedarían rutas como:
+
+const getGatitos = (req, res) => {
+    res.send()
+}
+app.get('/gatitos', getGatitos)
+
+# use es una función de express que escucha todos los pedidos.
+
+# Middleware:
+    es una función que está entre el pedido del usuario y la respuesta que yo le voy a dar.
+    esto permite separar el código, funcionalizarlo, tenerlo mas ordenado.
+    con next() vamos al proximo Middleware de nuestro código.
+
+    ! - Se ejecutan en el orden que aparece en el código!!
+
+    app.use((req, res, next) =>{
+        console.log("estoy en el primer Middleware");
+        next();
+    })
+
+    app.use((req, res, next) =>{
+        console.log("estoy en el segundp Middleware");
+        next();
+    })
+
+    Al objeto req, podríamos agregarle una propiedad, entonces cada función que continue como el next le envia todo
+    el req y resp, van a tener esa nueva propiedad.
+
+# Morga es una herramienta de desarollo que sirve para loguear info sobre los req y resp
+    const morga = require('morgan')
+    app.use(morgan('dev')) -> le decimos que estamos en dev.
+
+    conviene ponerlo bien arriba de todo para que lo tomen todos los req y resp siguientes.
+
+# Rutas, vamos a separarlas en diferentes archivos js
+    /routes
+        gatitoRoutes.js
+            const express = require('express');
+            // escucha las rutas que tengo en el archivo. no volvemos a usar app, porque sino se levantan dos instancias de express.
+            const userController = require('/controllers/userController');
+            const router = express.Router();
+
+            router.get('/', userController.getUsers);
+            module.exports = router;
+        userRoutes.js
+
+# Controllers,
+    /controllers
+        gatitoController.js
+            vendrían a estar todas los endpoints.
+            exports.getUsers = (req, res) => {
+                res.status(500).json({
+                    status: 'error',
+                    message: 'Ruta aun no implementada',
+                });
+            };
+
+        userController.js
+
+# server.js
+    idealmente hacemos un archivo server.js separando la logica que tenemos en app
+
+    app port = 8080;
+    app.listen(port, () => {
+      console.log(`App esta corriendo en el puerto ${port}`);
+    });

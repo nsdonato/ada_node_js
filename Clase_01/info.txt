@@ -1,0 +1,12 @@
+CLASE_01_29_08_2020
+Para ver la versión de node
+$ node -v
+
+$ node
+> const name = "Noelia"
+> console.log(name)
+> Noelia
+
+fs es un paquete de node que nos permite acceder al fylesystem, para utilizarlo en un archivo js lo utilizamos de esta manera:
+const fs = requiere('fs');
+const textoLeido = fs.readFileSync("./assets/texto.txt", "utf-8")

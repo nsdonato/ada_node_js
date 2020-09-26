@@ -1,0 +1,117 @@
+CLASE_04_19_09_2020
+
+// lo que sea que el usuario mande en id, ahora se va a llamar val.
+// este middleware se va a ejecutar antes que TODAS LAS RUTAS
+export.checkId = ('id', (req,res,next, val) => {
+    console.log(val);
+    next();
+})
+
+podemos poner esto en una función, la exportamos y luego la usamos antes de levantar los endpoints, ej:
+const { getId } = require(dondepusimoslafuncion)
+router.param('id', checkId)
+router.get("...bla)
+
+base de datos
+    mongo db es un tipo de bd no relacional.
+    la información esta organizada en colecciones y documentos, estos documentos son bastante parecidos a objetos.
+    eso nos permite tener mas info, de una manera mas amigable, mal manejadas no son tan eficientes.
+    se puede embeber documentos dentro de otros documentos.
+    BSON -> diferencia con JSON es que es tipado
+
+
+    firebase no usa mongo.
+
+Si no tuviera instalado mongo, bajar de acá https://www.mongodb.com/try/download/community?tck=docs_server la versión 4.4.1
+cuando este instalado crear una carpeta en c:\data y una db
+
+c:\archivos de programa\mongodb\server\4-4\bin
+    acá están todos los ejecutbles de mongo
+    mongod es el comando que nos va a servir para correr el servidor de mongo.
+    mongo para ejecutar las magias de mongo xD
+
+    Levanta el servidor, el puerto standar donde corre mongo 27017
+        c:\archivos de programa\mongodb\server\4-4\bin\mongod.exe
+
+    Este comando no funciona si antes no levantamos lserver
+        c:\archivos de programa\mongodb\server\4-4\bin\mongo.exe
+
+    Para probar una vez que termine de ejecutarse esto, en la consola escribimos db, mongo nos responde test.
+
+    Agregamos en las variables de sistema ciertas cosas para poder ejecutar los comandos desde cualquier
+    parte de windows.
+    En las variables de entorno del sistema:
+        en PATH C:\Program Files\MongoDB\Server\4.0\bin
+
+    Si ya teníamos abierto algo (terminal, powershell) lo cerramos y cuando abrimos escribimos mongod.exe y
+    deberíamos poder levantar el servidor desde cualquier carpeta
+
+    Siempre tenemos que ejecutar los dos comandos en terminales diferentes
+    1) mongod.exe
+    2) mongo.exe
+
+    crea una nueva base de datos llamada ada
+        use data
+
+    crea una nueva colección de gatitos dentro de la base de datos de ada
+    SIEMPRE TENEMOS QUE CREAR UNA COLECCIÓN Y AL MENOS INSERARLE UN DATO.
+        db.gatitos.insertOne({nombre: 'Trufa', edad: 6, colores: ["gris"], disponible: false});
+
+    Lista los gatitos de la colección
+        db.gatitos.find()
+
+    Creo mas de un objeto
+        db.gatitos.insertMany([{nombre: 'Rita', edad: 6, colores: ["negro"], disponible: false}, {nombre: 'Pepe', edad: 3, colores: ["blanco", "negro"], disponible: false}]);
+
+    mostrar todas las bases de datos que tengo, va a mostrar las que vienen con mongo por defecto tmb, admin, chat, config, ...
+        show dbs
+
+    con db chequeamos la base en la que etsamos
+        db
+
+    nos muestras las colecciones que tenemos
+        show collections
+
+    para salir de la bd:
+        quit()
+
+    para buscar algo:
+        db.gatitos.find({ nombre: 'Truga'})
+
+        operadores (van entre llaves)
+            $gt = greather than / $lt = lower than
+                db.gatitos.find({ edad: { $gt: 5}})
+            $gte = greather than or equal / $lt = lower than or equal
+                db.gatitos.find({ edad: { $gte: 5}})
+
+            filtrar por dos criterios a la vez:
+                separamos las propiedades por una coma (query AND, ambas tienen que ser verdaderas)
+                    db.gatitos.find({ disponible: false, nombre: 'Trufa'})
+
+                ||
+                   db.gatitos.find({ $or: [ { disponible: false}, {nombre: 'Trufa'}]})
+    crear
+        "post"
+            .insertOne()
+            .insertMany()
+    buscar
+        "get"
+            .find()
+    eliminar
+        "delete"
+            db.gatitos.deleteOne({edad: 4})
+            db.gatitos.deleteMany({edad: 4})
+
+    modificar algo puntual:
+        "patch" primero le indicamos por que dato buscar la info y después que le cambiamos.
+            db.gatitos.updateOne({nombre: 'Trufa'}, {$set: {edad: 7}})
+
+            si busco algo y encuentra 2 opciones, como estoy usando updateOne, va a actualizar el primero -.-
+
+        modificar mas de uno:
+            db.gatitos.updateMany({edad: {$gte: 5}}, {$set: disponible: false}})
+
+    modificar todo un documento:
+        "put"
+            db.gatitos.replaceOne({ nombre: 'Rita'}, {edad: 4, colores:["rosa", "azul", "verder"], disponible: true})
+
