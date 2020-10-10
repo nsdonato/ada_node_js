@@ -9,6 +9,14 @@ Mongoose va a conectar nuestra db con express.
 
 > npm install mongoose --save
 
-Ver notas en note-3
+Ver notas en el código server.js
 
-Schema = un esquema es un modelo a partir del cual podemos crear  muchos objetos (como una clase)
+Creo mi base de datos en la nube, voy a mongodb.com > elijo la opción atlas, creo un nuevo proyecto, dejo toda la config tal cual esta, elijo la opción free y creo mi cluster.
+tarda un poco.
+1) Connect
+2) Permitir Acceso desde cualquier parte (puedo ingresar desde cualquier ip)
+3) Ingresar un usuario, ANTES DE SEGUIR -> usar la password por defecto que genera mongo - ANOTARLA -
+4) Seleccionar un metodo de conección -> connect your application > seleccionar node js y una versión, copiar el string de la conección.
+mongodb+srv://nsdonato:<password>@cluster0.nqdrk.mongodb.net/<dbname>?retryWrites=true&w=majority
+5) Crear una collection > add my own data > le pongo el mismo nombre de mi base de datos.
+6) Una vez que reemplazamos nuestro connection string NO SUBIR EL CODIGO CON EL USERNAME Y PASSWORD, reemplazarlo por variables de entorno, proxima clase.

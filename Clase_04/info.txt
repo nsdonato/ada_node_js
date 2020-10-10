@@ -115,3 +115,5 @@ c:\archivos de programa\mongodb\server\4-4\bin
         "put"
             db.gatitos.replaceOne({ nombre: 'Rita'}, {edad: 4, colores:["rosa", "azul", "verder"], disponible: true})
 
+Resumen de Male de los comandos:
+https://github.com/malerey/Node-4-/blob/master/README.md
