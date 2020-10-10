@@ -1,1 +1,14 @@
 CLASE_05_26_09_2020
+
+Repaso de la clase pasada.
+http://localhost:27017
+
+Drivers: son un pedacito de software que nos permite conectar algo con otro.
+Mongodb trae un driver, pero es limitado, pero en la industria esta estandarizado usar un framework que se llama mongoose.
+Mongoose va a conectar nuestra db con express.
+
+> npm install mongoose --save
+
+Ver notas en note-3
+
+Schema = un esquema es un modelo a partir del cual podemos crear  muchos objetos (como una clase)
